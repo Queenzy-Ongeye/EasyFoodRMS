@@ -3,9 +3,13 @@ from django.db import models
 
 # Create your models here.
 class Shop(models.Model):
+    class NewManager(models.Manager):
+        def get_queryset(self) :
+            return super().get_queryset() .filter(status= 'published' )
+            
     name = models.CharField(max_length=25, blank=True)
     tagline = models.CharField(max_length=25, blank=True)
-    image = models.ImageField(blank=True)
+    image = models.ImageField(blank=True, upload_to='images/')
 
     def __str__(self):
         return self.name
